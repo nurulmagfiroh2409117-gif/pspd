@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Pergerakan - National Gallery Singapore{% endblock %}
+{% block header_title %}Pergerakan{% endblock %}
+{% block breadcrumbs %}
+<a href="/">Home</a> <span class="separator">/</span> <span class="current">Pergerakan</span>
+{% endblock %}
+
+{% block content %}
+<h2>Pergerakan Artefak</h2>
+<div style="margin-bottom: 15px;"><a href="/pergerakan/tambah" class="btn btn-primary">Catat Pemindahan Baru</a></div>
+<div class="table-responsive">
+<table border="1">
+<tr><th>ID</th><th>Waktu</th><th>Artefak</th><th>Lokasi</th><th>Status</th><th>Sumber</th><th>User/Pencatat</th></tr>
+{% for p in pergerakan %}
+<tr>
+<td>{{ p.id_pergerakan }}</td>
+<td>{{ p.tanggal.strftime('%Y-%m-%d %H:%M:%S') if p.tanggal else '' }}</td>
+<td><a href="/detail/{{ p.id_artefak }}" style="color:#007bff; text-decoration: underline;">{{ p.artefak_item.nama_artefak }}</a></td>
+<td>{{ p.lokasi_sasaran.nama_lokasi if p.lokasi_sasaran else 'Unknown' }}</td>
+<td>{{ p.status }}</td>
+{% set badge_color = '#17a2b8' if p.sumber_data == 'RFID Sensor' else '#6c757d' %}
+<td><span class="badge" style="background-color: {{ badge_color }}; color: white; padding: 4px 8px; border-radius: 4px;">{{ p.sumber_data }}</span></td>
+<td>{{ p.user_pencatat.nama if p.user_pencatat else '-' }}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}

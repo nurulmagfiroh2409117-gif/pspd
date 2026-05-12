@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Koleksi - National Gallery Singapore{% endblock %}
+{% block header_title %}Koleksi{% endblock %}
+{% block breadcrumbs %}
+<a href="/">Home</a> <span class="separator">/</span> <span class="current">Koleksi</span>
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Daftar Koleksi Artefak</h2>
+
+{% if session.get('user_id') %}
+<div style="margin-bottom: 15px;">
+    <a href="/artefak/tambah" class="btn btn-primary">Tambah Artefak Baru</a>
+</div>
+{% endif %}
+
+<div class="table-responsive">
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nama Artefak</th>
+            <th>Kategori</th>
+            <th>Tahun</th>
+            <th>Status</th>
+            <th>Tindakan</th>
+        </tr>
+
+        {% for a in artefak %}
+        <tr>
+            <td>{{ a.id_artefak }}</td>
+            <td>{{ a.nama_artefak }}</td>
+            <td>{{ a.kategori }}</td>
+            <td>{{ a.tahun }}</td>
+            <td>{{ a.status }}</td>
+            <td>
+                <a href="/detail/{{ a.id_artefak }}" class="btn btn-primary"
+                    style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">Lihat</a>
+                {% if session.get('user_id') %}
+                <a href="/artefak/edit/{{ a.id_artefak }}" class="btn btn-primary"
+                    style="background-color: #ffc107; border-color: #ffc107; color: black !important; padding: 0.25rem 0.5rem; font-size: 0.875rem;">Edit</a>
+                <form action="/artefak/hapus/{{ a.id_artefak }}" method="POST" style="display:inline-block;"
+                    onsubmit="return confirm('Yakin ingin menghapus artefak ini secara permanen? Data pelaporannya juga akan terhapus.');">
+                    <button type="submit" class="btn btn-danger"
+                        style="padding: 0.25rem 0.5rem; font-size: 0.875rem;">Hapus</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top:40px; margin-bottom: 10px;">
+    <h3 style="margin: 0;">Laporan Konservasi</h3>
+    {% if session.get('user_id') %}
+    <a href="/laporan/tambah" class="btn btn-primary" style="padding: 0.3rem 0.7rem; font-size: 0.9rem;">+ Tambah
+        Laporan</a>
+    {% endif %}
+</div>
+
+<div class="table-responsive">
+    <table border="1">
+        <tr>
+            <th>Artefak</th>
+            <th>Jenis Laporan</th>
+            <th>Tanggal</th>
+            <th>Keterangan</th>
+            {% if session.get('user_id') %}<th>Tindakan</th>{% endif %}
+        </tr>
+
+        {% for l in laporan %}
+        <tr>
+            <td><a href="/detail/{{ l.id_artefak }}" style="color:#007bff; text-decoration: underline;">{{
+                    l.artefak_item.nama_artefak if l.artefak_item else 'Unknown' }}</a></td>
+            <td>{{ l.jenis_laporan }}</td>
+            <td>{{ l.tanggal }}</td>
+            <td>{{ l.keterangan }}</td>
+            {% if session.get('user_id') %}
+            <td style="width: 140px;">
+                <a href="/laporan/edit/{{ l.id_laporan }}" class="btn btn-primary"
+                    style="background-color: #ffc107; border-color: #ffc107; color: black !important; padding: 0.2rem 0.5rem; font-size: 0.8rem;">Edit</a>
+                <form action="/laporan/hapus/{{ l.id_laporan }}" method="POST" style="display:inline-block;"
+                    onsubmit="return confirm('Yakin menghapus laporan ini?');">
+                    <button type="submit" class="btn btn-danger"
+                        style="padding: 0.2rem 0.5rem; font-size: 0.8rem;">Hapus</button>
+                </form>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+{% endblock %}

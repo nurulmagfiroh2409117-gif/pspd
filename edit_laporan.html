@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Laporan - National Gallery Singapore{% endblock %}
+{% block header_title %}Edit Laporan{% endblock %}
+{% block breadcrumbs %}
+<a href="/">Home</a> <span class="separator">/</span> <a href="/koleksi">Koleksi</a> <span class="separator">/</span> <span class="current">Edit Laporan</span>
+{% endblock %}
+
+{% block content %}
+<h2>Edit Laporan Konservasi ID: {{ laporan.id_laporan }}</h2>
+<div class="card" style="text-align: left; padding: 25px; min-width: 400px; display: block;">
+<form method="POST" action="/laporan/edit/{{ laporan.id_laporan }}">
+<p><label>Jenis Laporan</label><br>
+<select name="jenis_laporan" class="form-control" style="width: 100%; padding: 8px;" required>
+    <option value="Pembersihan Berkala" {% if laporan.jenis_laporan == 'Pembersihan Berkala' %}selected{% endif %}>Pembersihan Berkala</option>
+    <option value="Audit Lokasi" {% if laporan.jenis_laporan == 'Audit Lokasi' %}selected{% endif %}>Audit Lokasi</option>
+    <option value="Konservasi/Restorasi" {% if laporan.jenis_laporan == 'Konservasi/Restorasi' %}selected{% endif %}>Konservasi/Restorasi</option>
+    <option value="Kerusakan Ringan" {% if laporan.jenis_laporan == 'Kerusakan Ringan' %}selected{% endif %}>Kerusakan Ringan</option>
+    <option value="Kerusakan Berat" {% if laporan.jenis_laporan == 'Kerusakan Berat' %}selected{% endif %}>Kerusakan Berat</option>
+    <option value="Lainnya" {% if laporan.jenis_laporan == 'Lainnya' %}selected{% endif %}>Lainnya</option>
+</select></p>
+<p><label>Keterangan Lengkap</label><br>
+<textarea name="keterangan" class="form-control" rows="4" style="width: 100%; padding: 8px;" required>{{ laporan.keterangan }}</textarea></p>
+<button type="submit" class="btn btn-primary" style="background-color: #ffc107; border-color: #ffc107; color: black !important; margin-top: 15px;">Simpan Pembaruan</button>
+<a href="/koleksi" class="btn" style="background: #ccc; border-color: #bbb; margin-top: 15px; margin-left: 10px;">Batal</a>
+</form>
+</div>
+{% endblock %}

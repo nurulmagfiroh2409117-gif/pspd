@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Log Aktivitas - National Gallery Singapore{% endblock %}
+{% block header_title %}Log Aktivitas{% endblock %}
+{% block breadcrumbs %}
+<a href="/">Home</a> <span class="separator">/</span> <span class="current">Log Aktivitas</span>
+{% endblock %}
+
+{% block content %}
+<h2>Log Aktivitas Sistem</h2>
+<div class="table-responsive">
+<table border="1">
+<tr><th>Waktu</th><th>User</th><th>Aksi</th><th>Tabel (ID Data)</th><th>Keterangan</th></tr>
+{% for l in logs %}
+<tr>
+<td>{{ l.waktu.strftime('%Y-%m-%d %H:%M:%S') if l.waktu else '' }}</td>
+<td>{{ l.user_pelaku.nama if l.user_pelaku else 'Sistem/Otomatis' }}</td>
+<td><b>{{ l.aksi }}</b></td>
+<td>{{ l.tabel }} (ID: {{ l.id_data }})</td>
+<td>{{ l.keterangan }}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}

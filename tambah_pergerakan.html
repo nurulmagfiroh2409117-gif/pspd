@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Tambah Pergerakan - National Gallery Singapore{% endblock %}
+{% block header_title %}Tambah Pergerakan{% endblock %}
+{% block breadcrumbs %}
+<a href="/">Home</a> <span class="separator">/</span> <a href="/pergerakan">Pergerakan</a> <span class="separator">/</span> <span class="current">Tambah Pergerakan</span>
+{% endblock %}
+
+{% block content %}
+<h2>Pencatatan Pergerakan Artefak Baru</h2>
+<div class="card" style="text-align: left; padding: 25px; min-width: 400px; display: block;">
+<form method="POST" action="/pergerakan/tambah">
+<p><label>Pilih Artefak</label><br>
+<select name="id_artefak" class="form-control" style="width: 100%; padding: 8px;" required>
+    {% for a in artefak %}
+        <option value="{{ a.id_artefak }}">{{ a.nama_artefak }}</option>
+    {% endfor %}
+</select></p>
+<p><label>Pindah Ke Ruangan/Lokasi</label><br>
+<select name="id_lokasi" class="form-control" style="width: 100%; padding: 8px;" required>
+    {% for l in lokasi %}
+        <option value="{{ l.id_lokasi }}">{{ l.nama_lokasi }} ({{ l.jenis_lokasi }})</option>
+    {% endfor %}
+</select></p>
+<p><label>Status Tujuan</label><br><input type="text" name="status" class="form-control" value="Transit" style="width: 100%; padding: 8px;" required></p>
+<button type="submit" class="btn btn-primary" style="margin-top: 15px;">Simpan Catatan Perpindahan</button>
+<a href="/pergerakan" class="btn" style="background: #ccc; border-color: #bbb; margin-top: 15px; margin-left: 10px;">Batal</a>
+</form>
+</div>
+{% endblock %}

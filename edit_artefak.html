@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Artefak - National Gallery Singapore{% endblock %}
+{% block header_title %}Edit Artefak{% endblock %}
+{% block breadcrumbs %}
+<a href="/">Home</a> <span class="separator">/</span> <a href="/koleksi">Koleksi</a> <span class="separator">/</span> <span class="current">Edit Artefak</span>
+{% endblock %}
+
+
+{% block content %}
+<h2>Edit Artefak</h2>
+
+<div class="card" style="text-align: left; padding: 25px; min-width: 400px; display: block;">
+    <form method="POST" action="/artefak/edit/{{ artefak.id_artefak }}">
+        <p>
+            <label>Nama Artefak</label><br>
+            <input type="text" name="nama_artefak" value="{{ artefak.nama_artefak }}" class="form-control" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+        </p>
+        <p>
+            <label>Kategori</label><br>
+            <select name="kategori" class="form-control" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+                <option value="Lukisan" {% if artefak.kategori == 'Lukisan' %}selected{% endif %}>Lukisan</option>
+                <option value="Patung" {% if artefak.kategori == 'Patung' %}selected{% endif %}>Patung</option>
+                <option value="Keramik" {% if artefak.kategori == 'Keramik' %}selected{% endif %}>Keramik</option>
+                <option value="Fotografi" {% if artefak.kategori == 'Fotografi' %}selected{% endif %}>Fotografi</option>
+                <option value="Instalasi" {% if artefak.kategori == 'Instalasi' %}selected{% endif %}>Instalasi</option>
+                <option value="Dokumen Bersejarah" {% if artefak.kategori == 'Dokumen Bersejarah' %}selected{% endif %}>Dokumen Bersejarah</option>
+                <option value="Lainnya" {% if artefak.kategori == 'Lainnya' %}selected{% endif %}>Lainnya</option>
+            </select>
+        </p>
+        <p>
+            <label>Tahun</label><br>
+            <input type="text" name="tahun" value="{{ artefak.tahun }}" class="form-control" style="width: 100%; padding: 8px; margin-top: 5px;">
+        </p>
+        <p>
+            <label>Status</label><br>
+            <select name="status" class="form-control" style="width: 100%; padding: 8px; margin-top: 5px;">
+                <option value="Tersedia" {% if artefak.status == 'Tersedia' %}selected{% endif %}>Tersedia</option>
+                <option value="Dipamerkan" {% if artefak.status == 'Dipamerkan' %}selected{% endif %}>Dipamerkan</option>
+                <option value="Dalam Perbaikan" {% if artefak.status == 'Dalam Perbaikan' %}selected{% endif %}>Dalam Perbaikan</option>
+                <option value="Dipinjamkan" {% if artefak.status == 'Dipinjamkan' %}selected{% endif %}>Dipinjamkan</option>
+                <option value="Hilang" {% if artefak.status == 'Hilang' %}selected{% endif %}>Hilang</option>
+            </select>
+        </p>
+        <p style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary" style="background-color: #ffc107; border-color: #ffc107; color: black !important;">Simpan Pembaruan</button>
+            <a href="/koleksi" class="btn" style="background: #ccc; border-color: #bbb; margin-left: 10px;">Batal</a>
+        </p>
+    </form>
+</div>
+{% endblock %}

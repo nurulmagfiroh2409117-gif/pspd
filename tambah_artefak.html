@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Tambah Artefak - National Gallery Singapore{% endblock %}
+{% block header_title %}Tambah Artefak{% endblock %}
+{% block breadcrumbs %}
+<a href="/">Home</a> <span class="separator">/</span> <a href="/koleksi">Koleksi</a> <span class="separator">/</span> <span class="current">Tambah Artefak</span>
+{% endblock %}
+
+
+{% block content %}
+<h2>Tambah Artefak</h2>
+
+<div class="card" style="text-align: left; padding: 25px; min-width: 400px; display: block;">
+    <form method="POST" action="/artefak/tambah">
+        <p>
+            <label>Nama Artefak</label><br>
+            <input type="text" name="nama_artefak" class="form-control" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+        </p>
+        <p>
+            <label>Kategori</label><br>
+            <select name="kategori" class="form-control" style="width: 100%; padding: 8px; margin-top: 5px;" required>
+                <option value="" disabled selected>Pilih Kategori</option>
+                <option value="Lukisan">Lukisan</option>
+                <option value="Patung">Patung</option>
+                <option value="Keramik">Keramik</option>
+                <option value="Fotografi">Fotografi</option>
+                <option value="Instalasi">Instalasi</option>
+                <option value="Dokumen Bersejarah">Dokumen Bersejarah</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+        </p>
+        <p>
+            <label>Tahun</label><br>
+            <input type="text" name="tahun" class="form-control" style="width: 100%; padding: 8px; margin-top: 5px;">
+        </p>
+        <p>
+            <label>Status</label><br>
+            <select name="status" class="form-control" style="width: 100%; padding: 8px; margin-top: 5px;">
+                <option value="Tersedia">Tersedia</option>
+                <option value="Dipamerkan">Dipamerkan</option>
+                <option value="Dalam Perbaikan">Dalam Perbaikan</option>
+                <option value="Dipinjamkan">Dipinjamkan</option>
+                <option value="Hilang">Hilang</option>
+            </select>
+        </p>
+        <p style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary">Simpan Artefak Baru</button>
+            <a href="/koleksi" class="btn" style="background: #ccc; border-color: #bbb; margin-left: 10px;">Batal</a>
+        </p>
+    </form>
+</div>
+{% endblock %}
